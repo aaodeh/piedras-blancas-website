@@ -467,7 +467,12 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
+        // Initialize EmailJS
+        (function() {
+            emailjs.init("W8oe7PFO98g2GDDqJ"); // Replace with your User ID
+        })();
         // Mobile menu toggle
         function toggleMenu() {
             const navLinks = document.querySelector('.nav-links');
@@ -507,8 +512,31 @@
                 return;
             }
             
-            // Simulate form submission
-            alert(`Thank you, ${name}! Your message has been received. We'll get back to you soon.`);
+            // Send email using EmailJS
+            emailjs.sendForm('service_vumjv7a', 'template_q4yxbgh', this)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    
+                    // Show success message
+                    alert('Thank you! Your message has been sent successfully. We will get back to you soon.');
+                    
+                    // Reset form
+                    document.getElementById('contact-form').reset();
+                    
+                    // Reset button
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    
+                    // Show error message
+                    alert('Sorry, there was an error sending your message. Please try again or call us directly.');
+                    
+                    // Reset button
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                });
             
             // Reset form
             event.target.reset();
