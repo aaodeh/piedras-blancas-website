@@ -523,7 +523,7 @@
             }
             
             // Send email using EmailJS
-            emailjs.sendForm('service_vumjv7a', 'template_q4yxbgh', this)
+            emailjs.sendForm('service_vumjv7a', 'template_q4yxbgh', event.target)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     
