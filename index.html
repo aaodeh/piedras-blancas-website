@@ -468,11 +468,17 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script>
-        // Initialize EmailJS
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
         (function() {
-            emailjs.init("W8oe7PFO98g2GDDqJ"); // Replace with your User ID
+            // https://dashboard.emailjs.com/admin/account
+            emailjs.init({
+              publicKey: "W8oe7PFO98g2GDDqJ",
+            });
         })();
+    </script>
+    
+    <script type="text/javascript">
         // Mobile menu toggle
         function toggleMenu() {
             const navLinks = document.querySelector('.nav-links');
@@ -515,7 +521,7 @@
             }
             
             // Send email using EmailJS
-            emailjs.sendForm('service_vumjv7a', 'template_q4yxbgh', form)
+            emailjs.sendForm('service_vumjv7a', 'template_q4yxbgh', this)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     
