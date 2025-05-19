@@ -424,7 +424,7 @@
                             <label for="message">Project Details</label>
                             <textarea id="message" name="message" placeholder="Tell us about your project..." required></textarea>
                         </div>
-                        <button id="submit-btn" type="submit" class="btn">Send Message</button>
+                        <button type="submit" class="btn">Send Message</button>
                     </form>
                 </div>
                 <div class="contact-info">
@@ -468,17 +468,11 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="text/javascript">
+    <script>
+        // Initialize EmailJS
         (function() {
-            // https://dashboard.emailjs.com/admin/account
-            emailjs.init({
-              publicKey: "W8oe7PFO98g2GDDqJ",
-            });
+            emailjs.init("W8oe7PFO98g2GDDqJ"); // Replace with your User ID
         })();
-    </script>
-    
-    <script type="text/javascript">
         // Mobile menu toggle
         function toggleMenu() {
             const navLinks = document.querySelector('.nav-links');
@@ -504,17 +498,13 @@
         // Form submission
         function submitForm(event) {
             event.preventDefault();
-
+            
             // Get form data
             const formData = new FormData(event.target);
-            
-            const templateParams = {
-                from_name: formData.get('from_name'),
-                from_email: formData.get('from_email'),
-                phone: formData.get('phone') || 'Not provided',
-                message: formData.get('message'),
-                to_email: formData.get('to_email')
-            };
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const phone = formData.get('phone');
+            const message = formData.get('message');
             
             // Simple validation
             if (!name || !email || !message) {
@@ -523,7 +513,7 @@
             }
             
             // Send email using EmailJS
-            emailjs.sendForm('service_vumjv7a', 'template_q4yxbgh', event.target)
+            emailjs.sendForm('service_vumjv7a', 'template_q4yxbgh', this)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     
@@ -533,7 +523,9 @@
                     // Reset form
                     document.getElementById('contact-form').reset();
                     
-
+                    // Reset button
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
                     
                 }, function(error) {
                     console.log('FAILED...', error);
@@ -541,6 +533,9 @@
                     // Show error message
                     alert('Sorry, there was an error sending your message. Please try again or call us directly.');
                     
+                    // Reset button
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
                 });
             
             // Reset form
