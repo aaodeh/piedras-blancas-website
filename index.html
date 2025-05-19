@@ -499,6 +499,8 @@
         function submitForm(event) {
             event.preventDefault();
             
+            const form = event.target;
+
             // Get form data
             const formData = new FormData(event.target);
             const name = formData.get('name');
@@ -513,7 +515,7 @@
             }
             
             // Send email using EmailJS
-            emailjs.sendForm('service_vumjv7a', 'template_q4yxbgh', this)
+            emailjs.sendForm('service_vumjv7a', 'template_q4yxbgh', form)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     
@@ -539,7 +541,7 @@
                 });
             
             // Reset form
-            event.target.reset();
+            form.reset();
         }
 
         // Add scroll effect to header
