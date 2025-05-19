@@ -504,8 +504,6 @@
         // Form submission
         function submitForm(event) {
             event.preventDefault();
-            
-            const form = event.target;
 
             // Get form data
             const formData = new FormData(event.target);
@@ -547,7 +545,7 @@
                 });
             
             // Reset form
-            form.reset();
+            event.target.reset();
         }
 
         // Add scroll effect to header
